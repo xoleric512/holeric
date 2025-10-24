@@ -24,6 +24,7 @@
       <h3>Yangi bot yaratish</h3>
       <input id="name" placeholder="Bot nomi" />
       <input id="token" placeholder="Telegram token" />
+      <input id="apikey" placeholder="AI API Key" />
       <button onclick="createBot()">Yaratish</button>
     </div>
     <div id="botList"></div>
@@ -41,12 +42,13 @@
     async function createBot() {
       const name = document.getElementById("name").value;
       const token = document.getElementById("token").value;
-      if (!name || !token) return alert("Nom va token kerak!");
+      const apikey = document.getElementById("apikey").value;
+      if (!name || !token || !apikey) return alert("Nom, token va API key kerak!");
 
       const res = await fetch(API + "/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, token }),
+        body: JSON.stringify({ name, token, apikey }),
       });
       const data = await res.json();
       if (data.ok) loadBots();
